@@ -1,2 +1,8 @@
 .env
 cert.p12
+
+*.pyc
+
+.vscode/
+.pytest_cache/
+__pycache__/
