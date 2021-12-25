@@ -6,6 +6,10 @@ authors = ["Pedro Chedid <pedro.chedid@a55.tech>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+environs = "^9.3.5"
+python-dotenv = "^0.19.2"
+psycopg2-binary = "^2.9.2"
+SQLAlchemy = "^1.4.28"
 
 [tool.poetry.dev-dependencies]
 
