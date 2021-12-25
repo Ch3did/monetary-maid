@@ -10,6 +10,7 @@ environs = "^9.3.5"
 python-dotenv = "^0.19.2"
 psycopg2-binary = "^2.9.2"
 SQLAlchemy = "^1.4.28"
+pynubank = "^2.17.0"
 
 [tool.poetry.dev-dependencies]
 
