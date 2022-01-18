@@ -2,35 +2,36 @@
 classDiagram
 class FixedDebits{
   <<Debitos Fixos do Mẽs>>
-    int: id
-    str: name 
-    float: amount
-    str: description
-    date: charge_date
+        int: id
+        str: name 
+        float: amount
+        str: description
+        date: charge_date
     
 
 class FloatedDebits{
     <<Debitos Flutuantes do Mês>>
         int: id
-        str: name 
-        int: amount
+        str: name
+        float: amount
+        int: instalments
+        int: due_instalment
+        date: init_date 
+        date: end_date
         str: description
-        date: charge_date
-        date: due_date
-        int: days_to_due
 }
 
-class Savings{
+class Wallet{
     <<History of the savings>>
-    int: id
-    float: big_save_amount
-    float: big_save_rate
-    float: investment_amount
-    float: investment_rate
-    float: net_amount
-    float: gross_amount
-    float: fixed_debits
-    float: floated_debits
-    date: saved_date
+        int: id
+        float: gross
+        float: fixed_debits
+        float: floated_debits
+        float: net
+        float: invest
+        float: big_save
+        float: month_emergency
+        float: availeble
+        date: date
 }
 ```
