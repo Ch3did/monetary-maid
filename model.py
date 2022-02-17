@@ -54,6 +54,16 @@ class Wallet(Base):
     debits_details = Column(JSON)
 
 
+class NubankModel(Base):
+    __tablename__ = "nubank_statmentes"
+    id = Column(Integer, primary_key=True)
+    checknum = Column(String(100), nullable=False)
+    title = Column(String(60), nullable=False)
+    detail = Column(Text, nullable=False)
+    date = Column(DateTime, nullable=False)
+    typename = Column(String(100), nullable=False)
+
+
 if __name__ == "__main__":
     engine = Database().engine
     Base.metadata.create_all(engine)

@@ -1,5 +1,6 @@
 .env
 cert.p12
+data.pickle
 
 *.pyc
 
