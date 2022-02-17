@@ -8,8 +8,8 @@ class WalletMachine:
     def __init__(self, salary, conn):
         self.session = conn
         self.gross = salary[0]
-        self.fixed_debits_details = self._to_dict(self._get_fixed_debits())
-        self.floated_debits_details = self._to_dict(self._get_floated_debits())
+        self.fixed_debits_details = dict(self._get_fixed_debits())
+        self.floated_debits_details = dict(self._get_floated_debits())
         self.fixed_debits = self._sum(self.fixed_debits_details)
         self.floated_debits = self._sum(self.floated_debits_details)
         self.net = self.gross - self.fixed_debits - self.floated_debits
@@ -17,27 +17,28 @@ class WalletMachine:
         self.big_save = self.net * float(PO_BIG_SAVE)
         self.month_emergency = self.net * float(PO_MONTH_EMERGENCY)
         self.available = self.net - self.invest - self.big_save - self.month_emergency
-        self.date = arrow.now().format("YYYY-MM-DD")
+        self.time_stamp = arrow.now().format("YYYY-MM-DD")
+        self.date = arrow.now().strftime("%Y-%m")
 
     def _get_fixed_debits(self):
-        return (
-            self.session.query(FixedDebits.name, FixedDebits.amount)
+        if (
+            fix_debts := self.session.query(FixedDebits.name, FixedDebits.amount)
             .filter_by(use=True)
             .all()
-        )
+        ):
+            return fix_debts
+        return {}
 
     def _get_floated_debits(self):
-        return (
-            self.session.query(FloatedDebits.name, FloatedDebits.amount)
+        if (
+            floated_debits := self.session.query(
+                FloatedDebits.name, FloatedDebits.amount
+            )
             .filter_by(use=True)
             .all()
-        )
-
-    def _to_dict(self, query):
-        new_struckt = {}
-        for item in query:
-            new_struckt[item[0]] = item[1]
-        return new_struckt
+        ):
+            return floated_debits
+        return {}
 
     def _sum(self, debits):
         sum = 0
