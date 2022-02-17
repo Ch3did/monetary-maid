@@ -38,7 +38,7 @@ class FloatedDebits(Base):
 
 
 class Wallet(Base):
-    __tablename__ = "salary"
+    __tablename__ = "wallet"
 
     id = Column(Integer, primary_key=True)
     gross = Column(Numeric)
@@ -49,7 +49,8 @@ class Wallet(Base):
     big_save = Column(Numeric)
     month_emergency = Column(Numeric)
     available = Column(Numeric)
-    date = Column(DateTime)
+    timestamp = Column(DateTime, default=arrow.now())
+    date = Column(String(7), default=arrow.now().strftime("%m-%Y"))
     debits_details = Column(JSON)
 
 
