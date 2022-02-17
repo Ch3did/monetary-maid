@@ -34,7 +34,7 @@ class CLI:
     def get_debits_info(self):
         try:
             wallet = self.conn.query(Wallet).order_by(Wallet.id.desc()).first()
-            for key in  wallet.debits_details:
+            for key in wallet.debits_details:
                 logger.info({key: wallet.debits_details[key]})
             logger.info(f" -   Fixed Debits: R${wallet.fixed_debits:.2f}")
             logger.info(f" -   Floated Debits: R${wallet.floated_debits:.2f}")
@@ -95,11 +95,11 @@ class CLI:
 if __name__ == "__main__":
     c = CLI()
     if args["get"]:
-        if not args['period']:
+        if not args["period"]:
             c.get_money_info()
         else:
-            c.get_money_info(args['period'][0])
-            
+            c.get_money_info(args["period"][0])
+
     elif args["register"]:
         c.register_month_salary()
     elif args["debits"]:

@@ -32,6 +32,7 @@ parser.add_argument(
     help="Get your debits",
 )
 
+
 def get_args():
     return vars(parser.parse_args())
 
