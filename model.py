@@ -62,6 +62,7 @@ class NubankModel(Base):
     detail = Column(Text, nullable=False)
     date = Column(DateTime, nullable=False)
     typename = Column(String(100), nullable=False)
+    amount = Column(Numeric, nullable=False)
 
 
 if __name__ == "__main__":
