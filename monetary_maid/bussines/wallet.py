@@ -1,8 +1,8 @@
 import arrow
 from bussines.helpers.database import Database
 
-from get_env import PO_BIG_SAVE, PO_INVESTMENT, PO_MONTH_EMERGENCY
-from model import FixedDebits, FloatedDebits
+from monetary_maid.get_env import PO_BIG_SAVE, PO_INVESTMENT, PO_MONTH_EMERGENCY
+from monetary_maid.model import FixedDebits, FloatedDebits
 
 
 class WalletMachine:
