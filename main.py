@@ -6,12 +6,12 @@ from monetary_maid.view import MonetaryView
 mv = MonetaryView()
 
 # Groups
-@click.group("mget", help="Monetary Get: Get some info in the wallet")
+@click.group("get", help="Monetary Get: Get some info in the wallet")
 def mget():
     ...
 
 
-@click.group("mput", help="Monetary Put: Put some info in wallet")
+@click.group("put", help="Monetary Put: Put some info in wallet")
 def mput():
     ...
 
