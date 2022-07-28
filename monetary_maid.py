@@ -61,7 +61,7 @@ class CLI:
         try:
             logger.info(f"Salary: {args.get('register')[0]}")
 
-            machine = WalletMachine(args["register"], self.conn)
+            machine = WalletMachine(args["register"])
 
             wallet = Wallet(
                 gross=machine.gross,
@@ -106,3 +106,5 @@ if __name__ == "__main__":
         c.get_debits_info()
     else:
         logger.error("You need to specify a option")
+
+    c.conn.close()

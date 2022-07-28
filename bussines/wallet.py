@@ -1,12 +1,13 @@
 import arrow
 
+from bussines.helpers.database import Database
 from get_env import PO_BIG_SAVE, PO_INVESTMENT, PO_MONTH_EMERGENCY
 from model import FixedDebits, FloatedDebits
 
 
 class WalletMachine:
-    def __init__(self, salary, conn):
-        self.session = conn
+    def __init__(self, salary):
+        self.session = Database().session()
         self.gross = salary[0]
         self.fixed_debits_details = dict(self._get_fixed_debits())
         self.floated_debits_details = dict(self._get_floated_debits())
@@ -19,6 +20,7 @@ class WalletMachine:
         self.available = self.net - self.invest - self.big_save - self.month_emergency
         self.time_stamp = arrow.now().format("YYYY-MM-DD")
         self.date = arrow.now().strftime("%Y-%m")
+        self.session.close()
 
     def _get_fixed_debits(self):
         if (

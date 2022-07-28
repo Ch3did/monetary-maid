@@ -11,6 +11,11 @@ load_dotenv()
 
 DEBUG = os.environ.get("DEBUG")
 
+# Nubank Data
+TAX_ID = os.environ.get("TAX_ID")
+PASSWORD = os.environ.get("PASSWORD")
+FOLDER_PATH = os.environ.get("FOLDER_PATH")
+
 # PLR
 PO_INVESTMENT = os.environ.get("PO_INVESTMENT")
 PO_BIG_SAVE = os.environ.get("PO_BIG_SAVE")
