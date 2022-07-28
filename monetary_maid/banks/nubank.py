@@ -2,8 +2,8 @@ import arrow
 from bussines.helpers.database import Database
 from pynubank import Nubank
 
-from get_env import FOLDER_PATH, PASSWORD, TAX_ID
-from model import NubankModel
+from monetary_maid.get_env import FOLDER_PATH, PASSWORD, TAX_ID
+from monetary_maid.model import NubankModel
 
 
 class Nubank_API(Nubank):
