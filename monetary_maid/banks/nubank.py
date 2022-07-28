@@ -1,7 +1,7 @@
 import arrow
+from bussines.helpers.database import Database
 from pynubank import Nubank
 
-from bussines.helpers.database import Database
 from get_env import FOLDER_PATH, PASSWORD, TAX_ID
 from model import NubankModel
 
