@@ -1,0 +1,7 @@
+trocar postgres por sqlite
+
+remover .env substituir por ..config
+
+pip install cryptography
+https://www.geeksforgeeks.org/how-to-encrypt-and-decrypt-strings-in-python/
+https://www.geeksforgeeks.org/encrypt-and-decrypt-files-using-python/
