@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql.sqltypes import Boolean
 from sqlalchemy.types import JSON
 
-from bussines.helpers.database import Database
+from monetary_maid.helpers.database import Database
 
 Base = declarative_base()
 

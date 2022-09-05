@@ -3,11 +3,11 @@ classDiagram
 class FixedDebits{
   <<Debitos Fixos do Mẽs>>
         int: id
-        str: name 
+        str: name
         float: amount
         str: description
         date: charge_date
-    
+
 
 class FloatedDebits{
     <<Debitos Flutuantes do Mês>>
@@ -16,7 +16,7 @@ class FloatedDebits{
         float: amount
         int: instalments
         int: due_instalment
-        date: init_date 
+        date: init_date
         date: end_date
         str: description
 }
