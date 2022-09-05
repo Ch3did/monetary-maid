@@ -5,9 +5,11 @@ from pynubank import Nubank
 from monetary_maid.get_env import FOLDER_PATH, PASSWORD, TAX_ID
 from monetary_maid.model import NubankModel
 
+# TODO: criar classe para validação de gastos no Santinhos!!!
+
 
 class Nubank_API(Nubank):
-    def login(self):
+    def __init__(self):
         _path = FOLDER_PATH + "cert.p12"
         self.authenticate_with_cert(TAX_ID, PASSWORD, _path)
         self.conn = Database().session()
