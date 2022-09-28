@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql.sqltypes import Boolean
 from sqlalchemy.types import JSON
 
-from monetary_maid.helpers.database import Database
+from .helpers.database import Database
 
 Base = declarative_base()
 
@@ -65,6 +65,7 @@ class NubankModel(Base):
     amount = Column(Numeric, nullable=False)
 
 
-if __name__ == "__main__":
+def migrate():
+    # if __name__ == "__main__":
     engine = Database().engine
     Base.metadata.create_all(engine)
