@@ -1,24 +1,26 @@
 import arrow
-from bussines.helpers.database import Database
+from loguru import logger
 from pynubank import Nubank
 
 from monetary_maid.get_env import FOLDER_PATH, PASSWORD, TAX_ID
+from monetary_maid.helpers.database import Database
 from monetary_maid.model import NubankModel
 
 # TODO: criar classe para validação de gastos no Santinhos!!!
 
 
-class Nubank_API(Nubank):
+class Nubank_API:
     def __init__(self):
         _path = FOLDER_PATH + "cert.p12"
-        self.authenticate_with_cert(TAX_ID, PASSWORD, _path)
+        self.nu = Nubank()
+        self.nu.authenticate_with_cert(TAX_ID, PASSWORD, _path)
         self.conn = Database().session()
 
     def _get_value(self):
         return self.get_account_balance()
 
     def _get_transactions(self):
-        return self.get_account_feed()
+        return self.nu.get_account_feed()
 
     def _get_amount(self, item):
         position = item["detail"].find("$")
@@ -27,33 +29,37 @@ class Nubank_API(Nubank):
         return 0
 
     def update_statment(self):
-        last_date = (
-            self.conn.query(NubankModel.date)
-            .order_by(NubankModel.date.desc())
-            .first()["date"]
-        )
-        last_register = (
-            self.conn.query(NubankModel.checknum)
-            .filter(NubankModel.date == last_date)
-            .all()
-        )
-        transactions = self._get_transactions()
-        last_date = arrow.get(last_date)
-        for item in transactions:
-            if (
-                not item["id"] in last_register[0]
-                and arrow.get(item["postDate"]) >= last_date
-            ):
+        try:
+            transactions = self._get_transactions()
+            for item in transactions:
                 value = item.get("amount", self._get_amount(item))
-                nu = NubankModel(
-                    checknum=item["id"],
-                    title=item["title"],
-                    detail=item["detail"],
-                    date=item["postDate"],
-                    typename=item["__typename"],
-                    amount=float(value),
-                )
-                self.conn.add(nu)
-                self.conn.commit()
-                print(f"inserido no banco, {value}")
-        self.conn.close()
+                checknum = item["id"]
+                title = item["title"]
+                detail = item["detail"]
+                date = item["postDate"]
+                typename = item["__typename"]
+                amount = float(value)
+                if not (
+                    self.conn.query(NubankModel)
+                    .filter(NubankModel.checknum == checknum)
+                    .filter(NubankModel.title == title)
+                    .filter(NubankModel.detail == detail)
+                    .filter(NubankModel.date == date)
+                    .filter(NubankModel.typename == typename)
+                    .filter(NubankModel.amount == amount)
+                    .all()
+                ):
+                    nu = NubankModel(
+                        checknum=item["id"],
+                        title=item["title"],
+                        detail=item["detail"],
+                        date=item["postDate"],
+                        typename=item["__typename"],
+                        amount=float(value),
+                    )
+                    self.conn.add(nu)
+                    self.conn.commit()
+                    logger.info(f"inserido no banco: {title}")
+            self.conn.close()
+        except Exception as error:
+            logger.error(error)
