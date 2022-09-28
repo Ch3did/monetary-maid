@@ -1,6 +1,8 @@
 import arrow
 import click
 
+from monetary_maid.bussines.banks.nubank import Nubank_API
+from monetary_maid.model import migrate
 from monetary_maid.view import (
     get_debits_info,
     get_wallet_info,
@@ -8,20 +10,32 @@ from monetary_maid.view import (
     register_month_salary,
 )
 
-# Groups
-# @click.group("config", help="Configure your wallet")
-# def config():
-#     ...
 
-
+# Get data
 @click.group("get", help="Monetary Get: Get some info in the wallet")
 def mget():
     ...
 
 
+# Input data
 @click.group("put", help="Monetary Put: Put some info in wallet")
 def mput():
     ...
+
+
+# Update data
+@click.group("up", help="Monetary Update: Update some info on wallet")
+def mup():
+    ...
+
+
+# Configuration
+@click.group("confg", help="Monetary Update: Update some info on wallet")
+def mconf():
+    ...
+
+
+# GET
 
 
 @mget.command("debit", help="Get debits info")
@@ -37,6 +51,9 @@ def get_wallet(period):
     get_wallet_info()
 
 
+# PUT
+
+
 @mput.command("wallet", help="Register your new wallet")
 def put_wallet():
     register_month_salary()
@@ -45,3 +62,17 @@ def put_wallet():
 @mput.command("debit", help="Register a new debit")
 def put_debit():
     register_debit()
+
+
+# UPDATE
+
+
+@mup.command("nubank", help="Update Nubank Statment")
+def update_nu():
+    Nubank_API().update_statment()
+
+
+# CONFIGURATION
+@mconf.command("migrate", help="Run migrations")
+def run_migrations():
+    migrate()
