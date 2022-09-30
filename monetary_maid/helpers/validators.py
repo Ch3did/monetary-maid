@@ -31,4 +31,20 @@ def is_payment_day_valid(payment_day):
     return False
 
 
-# TODO: add an error msg for every validator
+class ATMValidatorException(Exception):
+    def __init__(
+        self,
+        message=None,
+        establishment=None,
+        details=None,
+        geolocation=None,
+        can_retry=True,
+        retries=0,
+    ):
+        self.message = message
+        self.establishment = establishment
+        self.details = details
+        self.geolocation = geolocation
+        self.can_retry = can_retry
+        if retries >= 1:
+            self.can_retry = False
