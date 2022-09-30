@@ -23,3 +23,5 @@
 > Cálculo de valor gasto por hora vs gastos p/ hora
 > Cálculo de porcentagem na conta p/ final do mês
 > Adição de débitos flutuantes vs valor p/ hora
+
+# TODO: Add usage
