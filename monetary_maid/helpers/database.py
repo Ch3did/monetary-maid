@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from monetary_maid.get_env import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, DEBUG
 
 
-# TODO: Mudar de postgres para SQLite
 class Database:
     def __init__(self):
         self.engine = create_engine(self._make_endpoint(), echo=bool(DEBUG))
