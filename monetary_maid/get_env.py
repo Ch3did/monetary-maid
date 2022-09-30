@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # PASSWORD=os.environ.get['PASSWORD']
 # FOLDER_PATH=os.environ.get['FOLDER_PATH']
 
-load_dotenv()
+load_dotenv(".monetary_maid.config")
 
 DEBUG = os.environ.get("DEBUG")
 
