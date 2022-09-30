@@ -2,11 +2,6 @@ import os
 
 from dotenv import load_dotenv
 
-# Nubank Data
-# TAX_ID=os.environ.get['TAX_ID']
-# PASSWORD=os.environ.get['PASSWORD']
-# FOLDER_PATH=os.environ.get['FOLDER_PATH']
-
 load_dotenv("monetary_maid.config")
 
 DEBUG = os.environ.get("DEBUG")
