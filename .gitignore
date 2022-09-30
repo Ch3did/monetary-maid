@@ -2,10 +2,10 @@
 cert.p12
 data.pickle
 
+monetary_maid.config
+
 *.pyc
 
 .vscode/
 .pytest_cache/
 __pycache__/
-
-.mm.config
