@@ -7,3 +7,5 @@ data.pickle
 .vscode/
 .pytest_cache/
 __pycache__/
+
+.mm.config
