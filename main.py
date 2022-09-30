@@ -3,7 +3,8 @@ import click
 
 from monetary_maid.bussines.banks.nubank import Nubank_API
 from monetary_maid.model import migrate
-from monetary_maid.view import (
+from monetary_maid.views.atm import update_establishment
+from monetary_maid.views.wallet import (
     get_debits_info,
     get_wallet_info,
     register_debit,
@@ -72,7 +73,14 @@ def update_nu():
     Nubank_API().update_statment()
 
 
+@mup.command("stab", help="Update Establishment Details and Location")
+def update_estab():
+    update_establishment()
+
+
 # CONFIGURATION
+
+
 @mconf.command("migrate", help="Run migrations")
 def run_migrations():
     migrate()
