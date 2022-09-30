@@ -54,8 +54,8 @@ class Wallet(Base):
     debits_details = Column(JSON)
 
 
-class NubankModel(Base):
-    __tablename__ = "nubank_statmentes"
+class ATM(Base):
+    __tablename__ = "statments"
     id = Column(Integer, primary_key=True)
     checknum = Column(String(100), nullable=False)
     title = Column(String(60), nullable=False)
@@ -63,6 +63,20 @@ class NubankModel(Base):
     date = Column(DateTime, nullable=False)
     typename = Column(String(100), nullable=False)
     amount = Column(Numeric, nullable=False)
+
+
+# TODO: Montar classe pra add detalhes e local dos estabelecimentos
+
+# TODO: Montar classe pra busca de quantidades gastas por estabelecimento
+
+
+class Establishments(Base):
+    __tablename__ = "establishments"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(60), nullable=False)
+    detail = Column(Text, nullable=True)
+    address = Column(String(60), nullable=True)
 
 
 def migrate():
