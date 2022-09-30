@@ -1,6 +1,3 @@
-import json
-import os
-
 import arrow
 from loguru import logger
 
@@ -37,8 +34,8 @@ def get_debits_info():
         if wallet := WalletMachine().get_debit():
             for key in wallet.debits_details:
                 logger.info({key: wallet.debits_details[key]})
-            logger.info(f" -   Fixed Debits: R${wallet.fixed_debits:.2f}")
-            logger.info(f" -   Floated Debits: R${wallet.floated_debits:.2f}")
+            logger.info(f"Fixed Debits: R${wallet.fixed_debits:.2f}")
+            logger.info(f"Floated Debits: R${wallet.floated_debits:.2f}")
     except Exception as e:
         logger.error(f"{e}")
 
