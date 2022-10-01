@@ -3,7 +3,7 @@ import click
 
 from monetary_maid.bussines.banks.nubank import Nubank_API
 from monetary_maid.model import migrate
-from monetary_maid.views.atm import update_establishment
+from monetary_maid.views.atm import get_establishment, update_establishment
 from monetary_maid.views.wallet import (
     get_debits_info,
     get_wallet_info,
@@ -45,11 +45,19 @@ def get_debits():
 
 
 @mget.command("wallet", help="Get wallet info")
-@click.option("--period", "-p", help="Get info for a period", type=click.DateTime())
+@click.option("--period", "-p", help="Get info for a period", default=arrow.now())
 def get_wallet(period):
-    if not period:
-        period = arrow.now()
-    get_wallet_info()
+    get_wallet_info(period)
+
+
+# TODO: ajustar lógica para busca de dados e busca de estabelecimentos
+# @mget.command("atm", help="Get wallet info")
+# @click.option("--name", "-n", required=True)
+# @click.option("--default", "-d",  is_flag=True)
+# @click.option("--period", "-p", help="Get info for a period", default=arrow.now())
+# def get_wallet(name, period, default):
+#     # if
+#     get_establishment(name, period, default)
 
 
 # PUT

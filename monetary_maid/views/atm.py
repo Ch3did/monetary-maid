@@ -30,3 +30,11 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
 
     except Exception as error:
         logger.error(error)
+
+
+def get_stablishment(name=None, period=None):
+    atm = ATM_API()
+    if period:
+        atm.get_stb_statment(name, period)
+    else:
+        atm.get_stb_info(name)
