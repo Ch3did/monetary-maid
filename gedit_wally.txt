@@ -1,4 +1,35 @@
 
-pip install cryptography
-https://www.geeksforgeeks.org/how-to-encrypt-and-decrypt-strings-in-python/
-https://www.geeksforgeeks.org/encrypt-and-decrypt-files-using-python/
+def __init__(self, client: HttpClient = None):
+def _make_graphql_request(self, graphql_object, variables=None):
+def _password_auth(self, cpf: str, password: str):
+def _find_url(self, known_keys: list, links: dict) -> str:
+def _save_auth_data(self, auth_data: dict) -> None:
+def get_qr_code(self) -> Tuple[str, QRCode]:
+def authenticate_with_qr_code(self, cpf: str, password, uuid: str):
+
+
+def authenticate_with_cert(self, cpf: str, password: str, cert_path: str):
+def authenticate_with_refresh_token(self, refresh_token: str, cert_path: str):
+def revoke_token(self):
+
+
+
+
+def get_card_feed(self):
+def get_card_statements(self):
+def get_card_payments(self):
+def get_bills(self):
+def get_customer(self):
+def get_bill_details(self, bill: dict):
+def get_card_statement_details(self, statement):
+def get_account_feed(self):
+def get_account_statements(self):
+def get_account_balance(self):
+def get_account_investments_details(self):
+def get_account_investments_yield(self, date=datetime.datetime.now()) -> float:
+def create_boleto(self, amount: float) -> str:
+def create_money_request(self, amount: float) -> str:
+def get_available_pix_keys(self):
+def create_pix_payment_qrcode(self, account_id: str, amount: float, pix_key: dict, tx_id: str = '') -> dict:
+def get_pix_identifier(self, transaction_id: str):
+def find_pix_identifier(table_item: dict):

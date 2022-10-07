@@ -1,0 +1,45 @@
+<mxfile host="65bd71144e">
+    <diagram id="YDCxboi6urfWM_7P6TeA" name="Page-3">
+        <mxGraphModel dx="1287" dy="749" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="4tZL7XAVUndYGeTnphcL-0"/>
+                <mxCell id="4tZL7XAVUndYGeTnphcL-1" parent="4tZL7XAVUndYGeTnphcL-0"/>
+                <mxCell id="4tZL7XAVUndYGeTnphcL-2" value="Statment" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="4tZL7XAVUndYGeTnphcL-1" vertex="1">
+                    <mxGeometry x="274" y="230" width="140" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="4tZL7XAVUndYGeTnphcL-3" value="id&lt;br&gt;checknum&lt;br&gt;title&lt;br&gt;detail&lt;br&gt;date&lt;br&gt;typename&lt;br&gt;amount&lt;br&gt;establishment_id&lt;br&gt;despesas_id&lt;br&gt;" style="text;whiteSpace=wrap;html=1;" parent="4tZL7XAVUndYGeTnphcL-2" vertex="1">
+                    <mxGeometry y="30" width="140" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.443;entryY=1.009;entryDx=0;entryDy=0;entryPerimeter=0;" parent="4tZL7XAVUndYGeTnphcL-1" source="Cl13Fru9l5XwO038i_Ok-0" target="4tZL7XAVUndYGeTnphcL-3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="Cl13Fru9l5XwO038i_Ok-0" value="Estabelecimentos" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="4tZL7XAVUndYGeTnphcL-1" vertex="1">
+                    <mxGeometry x="264" y="490" width="140" height="140" as="geometry">
+                        <mxRectangle x="70" y="290" width="110" height="30" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Cl13Fru9l5XwO038i_Ok-1" value="&lt;div&gt;id&lt;/div&gt;&lt;div&gt;name&lt;/div&gt;&lt;div&gt;detail&lt;/div&gt;&lt;div&gt;address&lt;/div&gt;&lt;div&gt;type&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="Cl13Fru9l5XwO038i_Ok-0" vertex="1">
+                    <mxGeometry y="30" width="140" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="0" value="tipo" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="4tZL7XAVUndYGeTnphcL-1" vertex="1">
+                    <mxGeometry x="254" y="10" width="160" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="1" value="id&lt;br&gt;name&lt;br&gt;description&lt;br&gt;esperado&lt;br&gt;gasto" style="text;whiteSpace=wrap;html=1;" parent="0" vertex="1">
+                    <mxGeometry y="30" width="160" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;html=1;" parent="4tZL7XAVUndYGeTnphcL-1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="730" y="380" as="sourcePoint"/>
+                        <mxPoint x="730" y="380" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.405;entryY=-0.013;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="4tZL7XAVUndYGeTnphcL-1" source="1" target="4tZL7XAVUndYGeTnphcL-2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="O histórico vai ficar aki" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="4tZL7XAVUndYGeTnphcL-1">
+                    <mxGeometry x="430" y="290" width="140" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
