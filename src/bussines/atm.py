@@ -1,8 +1,8 @@
 from loguru import logger
 
-from monetary_maid.helpers.database import Database
-from monetary_maid.helpers.validators import ATMValidatorException
-from monetary_maid.model import ATM, Establishments
+from src.helpers.database import Database
+from src.helpers.validators import ATMValidatorException
+from src.models.atm import Establishments, Statment
 
 # TODO: criar methodo para atualizar os dados de estabelecimento
 
@@ -10,7 +10,7 @@ from monetary_maid.model import ATM, Establishments
 # TODO: Criar lógica para pegar geolocalização dos estabelecimentos
 
 
-class ATM_API:
+class Statment_ATM:
     def __init__(self):
         self.conn = Database().session()
 
@@ -52,16 +52,16 @@ class ATM_API:
     def add_statment(self, item):
         # Valida registro de transação no banco
         if not (
-            self.conn.query(ATM)
-            .filter(ATM.checknum == item["checknum"])
-            .filter(ATM.title == item["title"])
-            .filter(ATM.detail == item["detail"])
-            .filter(ATM.date == item["date"])
-            .filter(ATM.typename == item["typename"])
-            .filter(ATM.amount == item["amount"])
+            self.conn.query(Statment)
+            .filter(Statment.checknum == item["checknum"])
+            .filter(Statment.title == item["title"])
+            .filter(Statment.detail == item["detail"])
+            .filter(Statment.date == item["date"])
+            .filter(Statment.typename == item["typename"])
+            .filter(Statment.amount == item["amount"])
             .all()
         ):
-            transaction = ATM(
+            transaction = Statment(
                 checknum=item["checknum"],
                 title=item["title"],
                 detail=item["detail"],

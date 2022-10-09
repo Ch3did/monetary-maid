@@ -1,15 +1,19 @@
 import arrow
 import click
 
-from monetary_maid.bussines.banks.nubank import Nubank_API
-from monetary_maid.model import migrate
-from monetary_maid.views.atm import update_establishment
-from monetary_maid.views.wallet import (
-    get_debits_info,
-    get_wallet_info,
-    register_debit,
-    register_month_salary,
+from src.views.atm import (
+    get_establishment,
+    update_establishment,
+    update_nubank_statment,
 )
+from src.views.config import migrate
+
+# from src.views.wallet import (
+#     get_debits_info,
+#     get_wallet_info,
+#     register_debit,
+#     register_month_salary,
+# )
 
 
 # Get data
@@ -41,15 +45,25 @@ def mconf():
 
 @mget.command("debit", help="Get debits info")
 def get_debits():
-    get_debits_info()
+    # get_debits_info()
+    pass
 
 
 @mget.command("wallet", help="Get wallet info")
 @click.option("--period", "-p", help="Get info for a period", type=click.DateTime())
 def get_wallet(period):
-    if not period:
-        period = arrow.now()
-    get_wallet_info()
+    # get_wallet_info(period)
+    pass
+
+
+# TODO: ajustar lógica para busca de dados e busca de estabelecimentos
+# @mget.command("atm", help="Get wallet info")
+# @click.option("--name", "-n", required=True)
+# @click.option("--default", "-d",  is_flag=True)
+# @click.option("--period", "-p", help="Get info for a period", default=arrow.now())
+# def get_wallet(name, period, default):
+#     # if
+#     get_establishment(name, period, default)
 
 
 # PUT
@@ -57,12 +71,14 @@ def get_wallet(period):
 
 @mput.command("wallet", help="Register your new wallet")
 def put_wallet():
-    register_month_salary()
+    # register_month_salary()
+    pass
 
 
 @mput.command("debit", help="Register a new debit")
 def put_debit():
-    register_debit()
+    # register_debit()
+    pass
 
 
 # UPDATE
@@ -70,7 +86,7 @@ def put_debit():
 
 @mup.command("nubank", help="Update Nubank Statment")
 def update_nu():
-    Nubank_API().update_statment()
+    update_nubank_statment()
 
 
 @mup.command("stab", help="Update Establishment Details and Location")
