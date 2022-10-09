@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from monetary_maid.get_env import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, DEBUG
+from src.get_env import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, DEBUG
 
 
 class Database:

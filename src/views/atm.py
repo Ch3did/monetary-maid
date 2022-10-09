@@ -1,8 +1,9 @@
 from loguru import logger
 
-from monetary_maid.bussines.banks.atm import ATM_API
-from monetary_maid.helpers.validators import ATMValidatorException
-from monetary_maid.views.atm import *
+from src.bussines.atm import Statment_ATM
+from src.bussines.nubank import Nubank_API
+from src.helpers.validators import ATMValidatorException
+from src.views.atm import *
 
 
 def update_establishment(establishment=None, details=None, geolocation=None, retries=0):
@@ -13,7 +14,7 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
             details = input("Details: ")
             geolocation = input("Geolocation: ")
 
-        ATM_API().update_establishment(establishment, details, geolocation)
+        Statment_ATM().update_establishment(establishment, details, geolocation)
 
         logger.info(f"Updated {establishment} info!")
 
@@ -28,5 +29,23 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
                     retries=retries,
                 )
 
+    except Exception as error:
+        logger.error(error)
+
+
+def get_establishment(name=None, period=None):
+    try:
+        atm = Statment_ATM()
+        if period:
+            atm.get_stb_statment(name, period)
+        else:
+            atm.get_stb_info(name)
+    except Exception as error:
+        logger.error(error)
+
+
+def update_nubank_statment():
+    try:
+        Nubank_API().update_statment()
     except Exception as error:
         logger.error(error)

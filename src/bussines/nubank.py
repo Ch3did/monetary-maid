@@ -2,14 +2,14 @@ import arrow
 from loguru import logger
 from pynubank import Nubank
 
-from monetary_maid.bussines.banks.atm import ATM_API
-from monetary_maid.get_env import FOLDER_PATH, PASSWORD, TAX_ID
-from monetary_maid.helpers.database import Database
+from src.bussines.atm import Statment_ATM
+from src.get_env import FOLDER_PATH, PASSWORD, TAX_ID
+from src.helpers.database import Database
 
 # TODO: criar classe para validação de gastos no Santinhos!!!
 
 
-class Nubank_API(ATM_API):
+class Nubank_API(Statment_ATM):
     def __init__(self):
         _path = FOLDER_PATH + "cert.p12"
         self.nu = Nubank()
