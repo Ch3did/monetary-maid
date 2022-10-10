@@ -4,8 +4,10 @@ from src.bussines.atm import Statment_ATM
 from src.bussines.nubank import Nubank_API
 from src.helpers.validators import ATMValidatorException
 from src.views.atm import *
+from src.helpers.clear import clean_output
 
 
+@clean_output
 def update_establishment(establishment=None, details=None, geolocation=None, retries=0):
     try:
         if not establishment:
@@ -33,6 +35,7 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
         logger.error(error)
 
 
+@clean_output
 def get_establishment(name=None, period=None):
     try:
         atm = Statment_ATM()
@@ -44,6 +47,7 @@ def get_establishment(name=None, period=None):
         logger.error(error)
 
 
+@clean_output
 def update_nubank_statment():
     try:
         Nubank_API().update_statment()
