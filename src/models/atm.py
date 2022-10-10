@@ -59,5 +59,9 @@ class Establishments(Base):
 
 
 def bank_raiser():
-    engine = Database().engine
-    Base.metadata.create_all(engine)
+    try:
+        engine = Database().engine
+        Base.metadata.create_all(engine)
+        return True
+    except Exception as error:
+        return False
