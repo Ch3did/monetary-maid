@@ -58,6 +58,17 @@ class Establishments(Base):
     statment = relationship("Statment")
 
 
+class Credit_Card(Base):
+    __tablename__ = "credit"
+    id = Column(Integer, primary_key=True)
+    checknum = Column(String(100), nullable=False)
+    title = Column(String(60), nullable=False)
+    detail = Column(Text, nullable=False)
+    date = Column(DateTime, nullable=False)
+    typename = Column(String(100), nullable=False)
+    amount = Column(Numeric, nullable=False)
+
+
 def bank_raiser():
     engine = Database().engine
     Base.metadata.create_all(engine)
