@@ -3,7 +3,7 @@ cert.p12
 data.pickle
 
 monetary_maid.config
-exemplos/
+discovery/
 
 *.pyc
 
