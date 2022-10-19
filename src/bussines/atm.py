@@ -14,31 +14,8 @@ class Statment_ATM:
         self.conn = Database().session()
 
     # Put
-    def update_establishment_datails(self, establishment, details, geolocation):
-        if id := (
-            self.conn.query(Establishments.id)
-            .filter(Establishments.name == establishment)
-            .all()
-        ):
-            self.conn.query(Establishments).filter(
-                Establishments.id == id[0][0]
-            ).update(
-                {
-                    Establishments.detail: f"{details}",
-                    Establishments.address: f"{geolocation}",
-                }
-            )
-            self.conn.commit()
-            self.conn.close()
-        else:
-            raise ATMValidatorException(
-                message="Unknow Establishment",
-                establishment=establishment,
-                details=details,
-                geolocation=geolocation,
-            )
-
-    def add_establishment(self, establishment):
+    
+    def _add_establishment(self, establishment):
         if values := (
             self.conn.query(Establishments.id)
             .filter(Establishments.name == establishment.lower().rstrip())
@@ -50,9 +27,9 @@ class Statment_ATM:
         logger.info(f"Finded new establishment: {establishment.title()}")
         self.conn.commit()
         self.conn.close()
-        return self.add_establishment(establishment)
+        return self._add_establishment(establishment)
 
-    def add_type(self, type):
+    def _add_type(self, type):
         if values := (
             self.conn.query(StatmentTypes.id).filter(StatmentTypes.name == type).all()
         ):
@@ -103,9 +80,9 @@ class Statment_ATM:
         self.conn.commit()
         self.conn.close()
 
-        return self.add_type(type)
+        return self._add_type(type)
 
-    def add_statment(self, item):
+    def _add_statment(self, item):
         # Valida registro de transação no banco
         if not (
             self.conn.query(Statment)
@@ -130,6 +107,31 @@ class Statment_ATM:
             logger.info(f"inserido no banco: {item['title']}")
             self.conn.commit()
             self.conn.close()
+
+    def update_establishment_datails(self, establishment, details, geolocation):
+        if id := (
+            self.conn.query(Establishments.id)
+            .filter(Establishments.name == establishment)
+            .all()
+        ):
+            self.conn.query(Establishments).filter(
+                Establishments.id == id[0][0]
+            ).update(
+                {
+                    Establishments.detail: f"{details}",
+                    Establishments.address: f"{geolocation}",
+                }
+            )
+            self.conn.commit()
+            self.conn.close()
+        else:
+            raise ATMValidatorException(
+                message="Unknow Establishment",
+                establishment=establishment,
+                details=details,
+                geolocation=geolocation,
+            )
+
 
     # Get
     def get_establishment_info(self, establishment_name):
@@ -174,4 +176,9 @@ class Statment_ATM:
                         value += float(item[0])
 
                 return value
-        return None
+        else:
+            raise ATMValidatorException(
+                message="Unknow Establishment",
+                establishment=establishment_name,
+            )
+
