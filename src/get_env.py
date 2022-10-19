@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv(".env")  # "monetary_maid.config")
+load_dotenv("monetary_maid.config")
 
 DEBUG = os.environ.get("DEBUG")
 
