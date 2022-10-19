@@ -1,11 +1,12 @@
 import arrow
 import click
 
-from src.views.atm import (
+from src.views.establishment import (
     get_establishment,
     update_establishment,
-    update_nubank_statment,
+    get_establishment_spend,
 )
+from src.views.statment import update_nubank_statment
 from src.views.config import migrate
 
 # from src.views.wallet import (
@@ -43,27 +44,23 @@ def mconf():
 # GET
 
 
-@mget.command("debit", help="Get debits info")
-def get_debits():
-    # get_debits_info()
-    pass
+@mget.command("estab", help="Get establishment info")
+@click.argument("name")
+def get_establishment_info(name):
+    get_establishment(str(name))
 
 
-@mget.command("wallet", help="Get wallet info")
-@click.option("--period", "-p", help="Get info for a period", type=click.DateTime())
-def get_wallet(period):
-    # get_wallet_info(period)
-    pass
-
-
-# TODO: ajustar lógica para busca de dados e busca de estabelecimentos
-# @mget.command("atm", help="Get wallet info")
-# @click.option("--name", "-n", required=True)
-# @click.option("--default", "-d",  is_flag=True)
-# @click.option("--period", "-p", help="Get info for a period", default=arrow.now())
-# def get_wallet(name, period, default):
-#     # if
-#     get_establishment(name, period, default)
+@mget.command("spend", help="Get wallet info")
+@click.argument("name")
+@click.option(
+    "--period",
+    "-p",
+    help="Get info for a period",
+    default=str(arrow.now().format(f"YYYY-MM-01")),
+)
+def get_wallet(name, period):
+    period = arrow.get(period).format(f"YYYY-MM-DD")
+    get_establishment_spend(name, period)
 
 
 # PUT
