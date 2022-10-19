@@ -25,10 +25,10 @@ class Nubank_API(Statment_ATM):
 
     def _update_relations(self, type, detail):
         id_establishment = 1
-        id_type = self.add_type(type)
+        id_type = self._add_type(type)
         if detail.find("R$") > 0:
             position = detail.find("R$")
-            id_establishment = self.add_establishment(
+            id_establishment = self._add_establishment(
                 (detail[:position]).lstrip(" ").rstrip(".- ").capitalize()
             )
 
@@ -61,7 +61,7 @@ class Nubank_API(Statment_ATM):
                 transaction["type_id"] = relation_values["type_id"]
                 transaction["establishment_id"] = relation_values["establishment_id"]
 
-                self.add_statment(transaction)
+                self._add_statment(transaction)
                 # Valida estabelecimento de compra pra alimentar Establishments
 
         except Exception as error:
