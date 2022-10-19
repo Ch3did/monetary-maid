@@ -36,16 +36,16 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
 def get_establishment(name):
     try:
         if establishment_info := Statment_ATM().get_establishment_info(name):
-            logger.info(f"Nome: {establishment_info['name']}")
+            logger.info(f"Name: {establishment_info['name']}")
             logger.info(
-                f"Data de Criação do registro: {establishment_info['created_at']}"
+                f"Registrer created in: {establishment_info['created_at']}"
             )
             if establishment_info["details"]:
-                logger.info(f"Detalhes: {establishment_info['details']}")
+                logger.info(f"Details: {establishment_info['details']}")
             if establishment_info["address"]:
-                logger.info(f"Endereço: {establishment_info['address']}")
+                logger.info(f"Address: {establishment_info['address']}")
             if establishment_info["is_pf"]:
-                logger.info(f"Pessoa física: {establishment_info['is_pf']}")
+                logger.info(f"Pf: {establishment_info['is_pf']}")
         else:
             logger.error("Establishment not found...")
     except Exception as error:
@@ -56,7 +56,7 @@ def get_establishment(name):
 def get_establishment_spend(name, period):
     try:
         if value := Statment_ATM().get_establishment_statment(name, period):
-            logger.info(f"{name.title()} entre {period} até hoje...")
+            logger.info(f"{name.title()} from {period} to today...")
             logger.info(f"Balanço: R$ {value:.2f}")
         else:
             logger.error(f"Establishment not found for {period}...")
