@@ -1,9 +1,6 @@
 from loguru import logger
-
 from src.bussines.atm import Statment_ATM
-from src.bussines.nubank import Nubank_API
 from src.helpers.validators import ATMValidatorException
-from src.views.atm import *
 from src.helpers.clear import clean_output
 
 
@@ -16,7 +13,7 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
             details = input("Details: ")
             geolocation = input("Geolocation: ")
 
-        Statment_ATM().update_establishment(establishment, details, geolocation)
+        Statment_ATM().update_establishment_datails(establishment, details, geolocation)
 
         logger.info(f"Updated {establishment} info!")
 
@@ -36,20 +33,35 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
 
 
 @clean_output
-def get_establishment(name=None, period=None):
+def get_establishment(name):
     try:
-        atm = Statment_ATM()
-        if period:
-            atm.get_stb_statment(name, period)
+        if establishment_info := Statment_ATM().get_establishment_info(name):
+            logger.info(f"Nome: {establishment_info['name']}")
+            logger.info(
+                f"Data de Criação do registro: {establishment_info['created_at']}"
+            )
+            if establishment_info["details"]:
+                logger.info(f"Detalhes: {establishment_info['details']}")
+            if establishment_info["address"]:
+                logger.info(f"Endereço: {establishment_info['address']}")
+            if establishment_info["is_pf"]:
+                logger.info(f"Pessoa física: {establishment_info['is_pf']}")
         else:
-            atm.get_stb_info(name)
+            logger.error("Establishment not found...")
     except Exception as error:
         logger.error(error)
 
 
 @clean_output
-def update_nubank_statment():
+def get_establishment_spend(name, period):
     try:
-        Nubank_API().update_statment()
+        if value := Statment_ATM().get_establishment_statment(
+            name, period
+        ):
+            logger.info(f"{name.title()} entre {period} até hoje...")
+            logger.info(f"Balanço: R$ {value:.2f}")
+        else:
+            logger.error(f"Establishment not found for {period}...")
+        pass
     except Exception as error:
         logger.error(error)
