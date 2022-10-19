@@ -164,7 +164,11 @@ class Statment_ATM:
 
                 for item in data:
                     transaction_type_id = item[1]
-                    if (self.conn.query(StatmentTypes.is_negative).filter(StatmentTypes.id == transaction_type_id).first())[0]:
+                    if (
+                        self.conn.query(StatmentTypes.is_negative)
+                        .filter(StatmentTypes.id == transaction_type_id)
+                        .first()
+                    )[0]:
                         value -= float(item[0])
                     else:
                         value += float(item[0])

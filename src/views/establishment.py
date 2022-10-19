@@ -55,9 +55,7 @@ def get_establishment(name):
 @clean_output
 def get_establishment_spend(name, period):
     try:
-        if value := Statment_ATM().get_establishment_statment(
-            name, period
-        ):
+        if value := Statment_ATM().get_establishment_statment(name, period):
             logger.info(f"{name.title()} entre {period} até hoje...")
             logger.info(f"Balanço: R$ {value:.2f}")
         else:
