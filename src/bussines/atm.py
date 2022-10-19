@@ -41,12 +41,12 @@ class Statment_ATM:
     def add_establishment(self, establishment):
         if values := (
             self.conn.query(Establishments.id)
-            .filter(Establishments.name == establishment.lower())
+            .filter(Establishments.name == establishment.lower().rstrip())
             .all()
         ):
             return int(values[0][0])
 
-        self.conn.add(Establishments(name=establishment.lower()))
+        self.conn.add(Establishments(name=establishment.lower().rstrip()))
         logger.info(f"Finded new establishment: {establishment.title()}")
         self.conn.commit()
         self.conn.close()
