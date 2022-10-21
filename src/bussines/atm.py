@@ -201,3 +201,20 @@ class Statment_ATM:
                 message="Unknow Establishment",
                 establishment=establishment_name,
             )
+
+    # Plot
+
+    # retornar um dicionário com totais de um estabelecimento separados por mês
+    def get_establishment_per_month(self, establishment_name):
+        if establishment_id := (
+            self.conn.query(Establishments.id)
+            .filter(Establishments.name == establishment_name.lower())
+            .first()
+        ):
+            data = (
+                self.conn.query(Statment.date)
+                .filter(Statment.establishment_id == establishment_id[0])
+                .order_by(Statment.date.desc())
+                .first()
+            )
+            # for
