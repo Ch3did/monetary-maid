@@ -64,3 +64,12 @@ def get_establishment_spend_view(name, period):
         pass
     except Exception as error:
         logger.error(error)
+
+
+# TODO: o plot tem que estar aki na view
+@clean_output
+def plot_period_by_establishment_view(name):
+    try:
+        dicionario_de_totais = Statment_ATM().get_establishment_per_month(name)
+    except Exception as error:
+        logger.error(error)
