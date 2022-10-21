@@ -2,8 +2,7 @@ from loguru import logger
 
 from src.helpers.database import Database
 from src.helpers.validators import ATMValidatorException
-from src.models.atm import Establishments, Statment, StatmentTypes
-
+from src.models.atm import Categories, Establishments, Statment, StatmentTypes
 
 # TODO: Criar lógica para pegar geolocalização dos estabelecimentos
 
@@ -14,7 +13,7 @@ class Statment_ATM:
         self.conn = Database().session()
 
     # Put
-    
+
     def _add_establishment(self, establishment):
         if values := (
             self.conn.query(Establishments.id)
@@ -132,8 +131,29 @@ class Statment_ATM:
                 geolocation=geolocation,
             )
 
+    def add_category(self, name, description, expected):
+        # TODO: View precisa mandar o dado tratado
+        if (
+            self.conn.query(Categories.id)
+            .filter(Categories.name == name.rstrip())
+            .first()
+        ):
+            raise ATMValidatorException(
+                message="Category already exists... ",
+                description=description,
+                expected=expected,
+            )
+
+        category = Categories(
+            name=name, description=description, expected=expected, is_visible=True
+        )
+
+        self.conn.add(category)
+        self.conn.commit()
+        self.conn.close()
 
     # Get
+
     def get_establishment_info(self, establishment_name):
         if data := (
             self.conn.query(Establishments)
@@ -181,4 +201,3 @@ class Statment_ATM:
                 message="Unknow Establishment",
                 establishment=establishment_name,
             )
-
