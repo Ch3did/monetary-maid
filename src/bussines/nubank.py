@@ -2,7 +2,6 @@ import arrow
 from loguru import logger
 from pynubank import Nubank
 
-
 from src.bussines.atm import Statment_ATM
 from src.get_env import FOLDER_PATH, PASSWORD, TAX_ID
 from src.helpers.database import Database
