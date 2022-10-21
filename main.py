@@ -6,6 +6,7 @@ from src.views.config import run_migrate_view
 from src.views.establishment import (
     get_establishment_info_view,
     get_establishment_spend_view,
+    plot_period_by_establishment_view,
     update_establishment_view,
 )
 from src.views.statment import update_nubank_statment_view
@@ -19,25 +20,25 @@ from src.views.statment import update_nubank_statment_view
 
 
 # Get data
-@click.group("get", help="Monetary Get: Get some info in the wallet")
+@click.group("get", help="Monetary Get: Get some info")
 def mget():
     ...
 
 
 # Input data
-@click.group("put", help="Monetary Put: Put some info in wallet")
+@click.group("put", help="Monetary Put: Put some info")
 def mput():
     ...
 
 
 # Update data
-@click.group("up", help="Monetary Update: Update some info on wallet")
+@click.group("up", help="Monetary Update: Update some info")
 def mup():
     ...
 
 
 # Configuration
-@click.group("confg", help="Monetary Update: Update some info on wallet")
+@click.group("confg", help="Monetary Config: Run configurations")
 def mconf():
     ...
 
@@ -51,7 +52,7 @@ def get_establishment_info(name):
     get_establishment_info_view(str(name))
 
 
-@mget.command("spend", help="Get wallet info")
+@mget.command("spend", help="Get the expenses for an establishment using a base period")
 @click.argument("name")
 @click.option(
     "--period",
@@ -62,6 +63,12 @@ def get_establishment_info(name):
 def get_establishment_spend(name, period):
     period = arrow.get(period).format(f"YYYY-MM-DD")
     get_establishment_spend_view(name, period)
+
+
+@mget.command("plot", help="Plot Establishment spends")
+@click.argument("name")
+def plot_period_by_establishment(name):
+    plot_period_by_establishment_view(name)
 
 
 # PUT
