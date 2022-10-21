@@ -1,13 +1,14 @@
 import arrow
 import click
 
+from src.views.categories import create_category_view
+from src.views.config import run_migrate_view
 from src.views.establishment import (
-    get_establishment,
-    update_establishment,
-    get_establishment_spend,
+    get_establishment_info_view,
+    get_establishment_spend_view,
+    update_establishment_view,
 )
-from src.views.statment import update_nubank_statment
-from src.views.config import migrate
+from src.views.statment import update_nubank_statment_view
 
 # from src.views.wallet import (
 #     get_debits_info,
@@ -47,7 +48,7 @@ def mconf():
 @mget.command("estab", help="Get establishment info")
 @click.argument("name")
 def get_establishment_info(name):
-    get_establishment(str(name))
+    get_establishment_info_view(str(name))
 
 
 @mget.command("spend", help="Get wallet info")
@@ -58,23 +59,21 @@ def get_establishment_info(name):
     help="Get info for a period",
     default=str(arrow.now().format(f"YYYY-MM-01")),
 )
-def get_wallet(name, period):
+def get_establishment_spend(name, period):
     period = arrow.get(period).format(f"YYYY-MM-DD")
-    get_establishment_spend(name, period)
+    get_establishment_spend_view(name, period)
 
 
 # PUT
 
 
-@mput.command("wallet", help="Register your new wallet")
-def put_wallet():
-    # register_month_salary()
-    pass
+@mput.command("category", help="Register a new Category")
+def create_category():
+    create_category_view()
 
-
-@mput.command("debit", help="Register a new debit")
-def put_debit():
-    # register_debit()
+    # @mput.command("debit", help="Register a new debit")
+    # def put_debit():
+    #     # register_debit()
     pass
 
 
@@ -82,13 +81,13 @@ def put_debit():
 
 
 @mup.command("nubank", help="Update Nubank Statment")
-def update_nu():
-    update_nubank_statment()
+def update_nubank_statment():
+    update_nubank_statment_view()
 
 
 @mup.command("stab", help="Update Establishment Details and Location")
-def update_estab():
-    update_establishment()
+def update_establishment():
+    update_establishment_view()
 
 
 # CONFIGURATION
@@ -96,4 +95,4 @@ def update_estab():
 
 @mconf.command("migrate", help="Run migrations")
 def run_migrations():
-    migrate()
+    run_migrate_view()

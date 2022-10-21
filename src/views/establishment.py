@@ -1,11 +1,14 @@
 from loguru import logger
+
 from src.bussines.atm import Statment_ATM
-from src.helpers.validators import ATMValidatorException
 from src.helpers.clear import clean_output
+from src.helpers.validators import ATMValidatorException
 
 
 @clean_output
-def update_establishment(establishment=None, details=None, geolocation=None, retries=0):
+def update_establishment_view(
+    establishment=None, details=None, geolocation=None, retries=0
+):
     try:
         if not establishment:
             establishment = input("Establishment: ")
@@ -33,13 +36,11 @@ def update_establishment(establishment=None, details=None, geolocation=None, ret
 
 
 @clean_output
-def get_establishment(name):
+def get_establishment_info_view(name):
     try:
         if establishment_info := Statment_ATM().get_establishment_info(name):
             logger.info(f"Name: {establishment_info['name']}")
-            logger.info(
-                f"Registrer created in: {establishment_info['created_at']}"
-            )
+            logger.info(f"Registrer created in: {establishment_info['created_at']}")
             if establishment_info["details"]:
                 logger.info(f"Details: {establishment_info['details']}")
             if establishment_info["address"]:
@@ -53,7 +54,7 @@ def get_establishment(name):
 
 
 @clean_output
-def get_establishment_spend(name, period):
+def get_establishment_spend_view(name, period):
     try:
         if value := Statment_ATM().get_establishment_statment(name, period):
             logger.info(f"{name.title()} from {period} to today...")
