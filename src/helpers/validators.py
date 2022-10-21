@@ -9,7 +9,7 @@ def is_name_valid(name):
 
 def is_amount_valid(amount):
     if amount.isnumeric():
-        return amount
+        return float(amount)
     return False
 
 
@@ -35,16 +35,25 @@ class ATMValidatorException(Exception):
     def __init__(
         self,
         message=None,
+        can_retry=True,
+        retries=0,
         establishment=None,
         details=None,
         geolocation=None,
-        can_retry=True,
-        retries=0,
+        description=None,
+        expected=None,
     ):
         self.message = message
-        self.establishment = establishment
-        self.details = details
-        self.geolocation = geolocation
         self.can_retry = can_retry
         if retries >= 1:
             self.can_retry = False
+        if establishment:
+            self.establishment = establishment
+        if details:
+            self.details = details
+        if geolocation:
+            self.geolocation = geolocation
+        if description:
+            self.description = description
+        if expected:
+            self.expected = expected
