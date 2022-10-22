@@ -16,19 +16,16 @@ class Nubank_API(Statment_ATM):
         self.nu.authenticate_with_cert(TAX_ID, PASSWORD, _path)
         self.conn = Database().session()
 
-    def _get_value(self):
-        return self.nu.get_account_statements()
-
     def _get_transactions(self):
         return self.nu.get_account_statements()
 
-    def _update_relations(self, type, detail):
+    def _update_relations(self, type, detail, date):
         id_establishment = 1
         id_type = self._add_type(type)
         if detail.find("R$") > 0:
             position = detail.find("R$")
             id_establishment = self._add_establishment(
-                (detail[:position]).lstrip(" ").rstrip(".- ").capitalize()
+                (detail[:position]).lstrip(" ").rstrip(".- ").capitalize(), date
             )
 
         # TODO: Setar valor default para establishment == None
@@ -55,7 +52,7 @@ class Nubank_API(Statment_ATM):
                     "typename": item["__typename"],
                 }
                 relation_values = self._update_relations(
-                    transaction["title"], transaction["detail"]
+                    transaction["title"], transaction["detail"], transaction["date"]
                 )
                 transaction["type_id"] = relation_values["type_id"]
                 transaction["establishment_id"] = relation_values["establishment_id"]
