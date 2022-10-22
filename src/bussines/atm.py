@@ -1,3 +1,4 @@
+import arrow
 from loguru import logger
 
 from src.helpers.database import Database
@@ -14,19 +15,22 @@ class Statment_ATM:
 
     # Put
 
-    def _add_establishment(self, establishment):
-        if values := (
-            self.conn.query(Establishments.id)
-            .filter(Establishments.name == establishment.lower().rstrip())
-            .all()
+    def _add_establishment(self, name, date):
+        if establishment := (
+            self.conn.query(Establishments)
+            .filter(Establishments.name == name.lower().rstrip())
+            .first()
         ):
-            return int(values[0][0])
+            if arrow.get(establishment.created_at) > arrow.get(date):
+                establishment.created_at = date
+                self.conn.commit()
+            return int(establishment.id)
 
-        self.conn.add(Establishments(name=establishment.lower().rstrip()))
-        logger.info(f"Finded new establishment: {establishment.title()}")
+        self.conn.add(Establishments(name=name.lower().rstrip(), created_at=date))
+        logger.info(f"Finded new establishment: {name.title()}")
         self.conn.commit()
         self.conn.close()
-        return self._add_establishment(establishment)
+        return self._add_establishment(name, date)
 
     def _add_type(self, type):
         if values := (
