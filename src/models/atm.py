@@ -18,12 +18,13 @@ class Categories(Base):
     expected = Column(Numeric, nullable=True)
     liquid = Column(Numeric)
     created_at = Column(
-        String(7), default=arrow.now().strftime("%m-%Y")
-    )  # Data que foi adicionado
-    upated_at = Column(
-        String(7), default=arrow.now().strftime("%m-%Y")
+        DateTime, default=arrow.now().strftime("%Y-%m-%d")
+    )  # Data da primeira vez que foi usado
+    updated_at = Column(
+        DateTime, default=arrow.now().strftime("%Y-%m-%d")
     )  # Data que foi alterado
     is_visible = Column(Boolean, default=True)
+    # TODO: Add key-words
     statment = relationship("Statment")
 
 
@@ -47,10 +48,10 @@ class Establishments(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(60), nullable=False)
     created_at = Column(
-        String(7), default=arrow.now().strftime("%m-%Y")
-    )  # Data que foi adicionado
-    upated_at = Column(
-        String(7), default=arrow.now().strftime("%m-%Y")
+        DateTime, default=arrow.now().strftime("%Y-%m-%d")
+    )  # Data da primeira vez que foi usado
+    updated_at = Column(
+        DateTime, default=arrow.now().strftime("%Y-%m-%d")
     )  # Data que foi alterado
     detail = Column(Text, nullable=True)
     address = Column(String(60), nullable=True)
