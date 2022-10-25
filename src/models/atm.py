@@ -1,12 +1,41 @@
 import arrow
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import (
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    MetaData,
+    Numeric,
+    String,
+    Text,
+)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Boolean
 
+from src.get_env import SCHEMA
+
 from ..helpers.database import Database
 
-Base = declarative_base()
+metadata_obj = MetaData(schema=SCHEMA)
+
+Base = declarative_base(metadata=metadata_obj)
+
+
+class Bills(Base):
+    __tablename__ = "bills"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    amount = Column(Numeric, nullable=False)
+    instalments = Column(Integer, nullable=False, default=1)
+    due_instalment = Column(Numeric, nullable=False)
+    start_date = Column(DateTime, nullable=False, default=arrow.now())
+    end_date = Column(DateTime, nullable=True)
+    payment_day = Column(String(2), nullable=True, default="01")
+    description = Column(Text, nullable=False)
+    use = Column(Boolean, nullable=False, default=True)
+    categories_id = Column(Integer, ForeignKey("categories.id"))
 
 
 class Categories(Base):
@@ -26,6 +55,7 @@ class Categories(Base):
     is_visible = Column(Boolean, default=True)
     # TODO: Add key-words
     statment = relationship("Statment")
+    bills = relationship("Bills")
 
 
 class Statment(Base):
