@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 from src.helpers.database import Database
 from src.helpers.validators import ATMValidatorException
-from src.models.atm import Categories, Establishments, Statment, StatmentTypes
+from src.models.atm import Bills, Categories, Establishments, Statment, StatmentTypes
 
 # TODO: Criar lógica para pegar geolocalização dos estabelecimentos
 
@@ -155,6 +155,41 @@ class Statment_ATM:
         )
 
         self.conn.add(category)
+        self.conn.commit()
+        self.conn.close()
+
+    def add_bill(
+        self,
+        name,
+        amount,
+        dates,
+        payment_day,
+        description,
+        use,
+        instalments=None,
+        due_instalment=None,
+    ):
+        if self.conn.query(Bills.id).filter(Bills.name == name.rstrip()).first():
+            # TODO: criar nova exception para cada tabela
+            raise ATMValidatorException(
+                message="Bill already exists... ",
+                description=description,
+                # expected=expected,
+                # amount, dates, payment_day, description, use, instalments=None, due_instalment=None
+            )
+
+        bill = Bills(
+            name=name,
+            amount=amount,
+            dates=dates,
+            payment_day=payment_day,
+            description=description,
+            use=use,
+            instalments=instalments,
+            due_instalment=due_instalment,
+        )
+
+        self.conn.add(bill)
         self.conn.commit()
         self.conn.close()
 
