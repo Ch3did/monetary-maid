@@ -1,6 +1,7 @@
 import arrow
 import click
 
+from src.views.bills import create_bill_view
 from src.views.categories import create_category_view
 from src.views.config import run_migrate_view
 from src.views.establishment import (
@@ -77,6 +78,11 @@ def plot_period_by_establishment(name):
 @mput.command("category", help="Register a new Category")
 def create_category():
     create_category_view()
+
+
+@mput.command("bill", help="Register a new Bill")
+def create_category():
+    create_bill_view()
 
     # @mput.command("debit", help="Register a new debit")
     # def put_debit():
