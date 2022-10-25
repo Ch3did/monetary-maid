@@ -1,5 +1,7 @@
 import arrow
+import pandas as pd
 from loguru import logger
+from matplotlib import pyplot as plt
 
 from src.helpers.database import Database
 from src.helpers.validators import ATMValidatorException
@@ -210,15 +212,33 @@ class Statment_ATM:
 
     # retornar um dicionário com totais de um estabelecimento separados por mês
     def get_establishment_per_month(self, establishment_name):
-        if establishment_id := (
-            self.conn.query(Establishments.id)
+        if establishment := (
+            self.conn.query(Establishments)
             .filter(Establishments.name == establishment_name.lower())
             .first()
         ):
-            data = (
-                self.conn.query(Statment.date)
-                .filter(Statment.establishment_id == establishment_id[0])
-                .order_by(Statment.date.desc())
-                .first()
+            all_statment_data = (
+                self.conn.query(
+                    Statment.date, Statment.amount, Statment.statment_type_id
+                )
+                .filter(Statment.establishment_id == establishment.id)
+                .all()
             )
-            # for
+            pandas_dict = {"amount": [], "date": []}
+            for item in all_statment_data:
+                is_negative, is_math_use = (
+                    self.conn.query(
+                        StatmentTypes.is_negative, StatmentTypes.is_math_use
+                    )
+                    .filter(StatmentTypes.id == item.statment_type_id)
+                    .first()
+                )
+                if is_math_use:
+                    pandas_dict["amount"].append(
+                        item.amount * -1 if is_negative else item.amount
+                    )
+                    pandas_dict["date"].append(item.date)
+            new = pd.DataFrame.from_dict(pandas_dict)
+            new = new.groupby("date")
+            new.count().plot()
+            plt.show()
