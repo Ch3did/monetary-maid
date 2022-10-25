@@ -8,7 +8,7 @@ class Config:
 
     def make_migrate(self):
         default_category = Categories(
-            name="Extras",
+            name="extras",
             description="Default category maded to receive everything that's not indentified",
             expected=500.00,
         )
