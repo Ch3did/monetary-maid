@@ -108,11 +108,11 @@ class Establishments(Base):
     updated_at = Column(
         DateTime, default=arrow.now().strftime("%Y-%m-%d")
     )  # Data que foi alterado
-    detail = Column(Text, nullable=True)
-    address = Column(String(60), nullable=True)
+    detail = Column(Text, nullable=True, default=None)
+    address = Column(String(60), nullable=True, default=None)
     is_visible = Column(Boolean, default=True)
     is_pf = Column(Boolean, default=False)
-    mcc = Column(Integer, nullable=True)  # Merchant Category Code
+    mcc = Column(Integer, nullable=True, default=None)  # Merchant Category Code
     country = Column(String(60), nullable=True)
 
     statment = relationship("Statment")
