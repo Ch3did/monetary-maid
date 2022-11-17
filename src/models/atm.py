@@ -72,11 +72,36 @@ class Statment(Base):
     establishment_id = Column(Integer, ForeignKey("establishments.id"))
 
 
+class Credit_Statement(Base):
+    __tablename__ = "credit"
+    id = Column(Integer, primary_key=True)
+    checknum = Column(String(100), nullable=False)  #   #sem detalhes
+    category = Column(String(60), nullable=False)  #  # sem detalhes
+    total_amount = Column(Numeric, nullable=False)  #  # amoutn sem detalhes
+    instalment_amount = Column(Numeric, nullable=False)  # (amount *100) # detalhe
+    status = Column(String(60), nullable=False)  # (status) # detalhe
+    instalment_date = Column(DateTime)  # (post_date) # detalhe
+    instalment_index = Column(Integer)  # (index) # detalhe
+    instalment_promotion_reason = Column(
+        String(60), nullable=True
+    )  # (promotion_reason) # detalhe
+    purchase_date = Column(DateTime)  #  #Quando foi criado sem detalhes
+    title = Column(String(60), nullable=False)  #  # sem detalhes
+    source = Column(String(60), nullable=False)  #  #sem detalhes
+    card_last_digits = Column(Integer)
+    card_type = Column(String(40), nullable=False)
+    amount_without_iof = Column(Numeric, nullable=False)
+    card_id = Column(String(60), nullable=False)
+    event_type = Column(String(60), nullable=False)
+    establishment_id = Column(Integer, ForeignKey("establishments.id"))
+
+
 class Establishments(Base):
     __tablename__ = "establishments"
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60), nullable=False)
+    original_name = Column(String(100), nullable=False)
     created_at = Column(
         DateTime, default=arrow.now().strftime("%Y-%m-%d")
     )  # Data da primeira vez que foi usado
@@ -85,9 +110,13 @@ class Establishments(Base):
     )  # Data que foi alterado
     detail = Column(Text, nullable=True)
     address = Column(String(60), nullable=True)
-    statment = relationship("Statment")
     is_visible = Column(Boolean, default=True)
     is_pf = Column(Boolean, default=False)
+    mcc = Column(Integer, nullable=True)  # Merchant Category Code
+    country = Column(String(60), nullable=True)
+
+    statment = relationship("Statment")
+    credit_statment = relationship("Credit_Statement")
 
     # TODO: added Typo de estabelecimento
 
