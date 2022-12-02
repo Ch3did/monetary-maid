@@ -52,7 +52,7 @@ class Nubank_API(Statment_ATM):
             )
 
             relation["establishment"]["mcc"] = None
-            relation["establishment"]["country"] = "brasil"
+            relation["establishment"]["country"] = "bra"
 
         relation["establishment"]["original_name"] = (
             relation["establishment"]["original_name"].strip("-").rstrip().lstrip()
