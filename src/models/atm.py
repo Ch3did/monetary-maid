@@ -59,7 +59,7 @@ class Categories(Base):
 
 
 class Statment(Base):
-    __tablename__ = "statments"
+    __tablename__ = "debit"
     id = Column(Integer, primary_key=True)
     checknum = Column(String(100), nullable=False)
     detail = Column(Text, nullable=False)
@@ -67,7 +67,7 @@ class Statment(Base):
     typename = Column(String(100), nullable=False)
     amount = Column(Numeric, nullable=False)
     # ForeignKey
-    statment_type_id = Column(Integer, ForeignKey("statment_types.id"))
+    statment_type_id = Column(Integer, ForeignKey("types.id"))
     categories_id = Column(Integer, ForeignKey("categories.id"))
     establishment_id = Column(Integer, ForeignKey("establishments.id"))
 
@@ -122,7 +122,7 @@ class Establishments(Base):
 
 
 class StatmentTypes(Base):
-    __tablename__ = "statment_types"
+    __tablename__ = "types"
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60), nullable=False)
@@ -133,9 +133,5 @@ class StatmentTypes(Base):
 
 
 def bank_raiser():
-    try:
-        engine = Database().engine
-        Base.metadata.create_all(engine)
-        return True
-    except Exception as error:
-        return False
+    engine = Database().engine
+    Base.metadata.create_all(engine)
