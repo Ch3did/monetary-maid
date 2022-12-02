@@ -15,6 +15,7 @@ class Config:
 
         default_establishments = Establishments(
             name="N/A",
+            original_name="N/A",
             detail="Used when we don't have info about the establishment",
             is_visible=False,
         )
