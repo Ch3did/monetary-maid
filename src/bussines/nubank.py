@@ -155,5 +155,5 @@ class Nubank_API(Statment_ATM):
             logger.error(error)
 
     def update_statment(self):
-        # self._debit_update()
+        self._debit_update()
         self._credit_update()
