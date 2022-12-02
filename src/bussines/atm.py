@@ -279,16 +279,40 @@ class Statment_ATM:
     def get_establishment_info(self, establishment_name):
         if data := (
             self.conn.query(Establishments)
-            .filter(Establishments.name == establishment_name.lower())
-            .first()
+            .filter(Establishments.name.ilike(f"%{establishment_name.lower()}%"))
+            .all()
         ):
-            return {
-                "name": data.name,
-                "created_at": data.created_at,
-                "details": data.detail,
-                "address": data.address,
-                "is_pf": data.is_pf,
-            }
+            if not isinstance(data, list):
+                return [
+                    {
+                        "name": data.name,
+                        "id": data.id,
+                        "original_name": data.original_name,
+                        "merchant code": data.mcc,
+                        "created_at": data.created_at,
+                        "details": data.detail,
+                        "address": data.address,
+                        "is_pf": data.is_pf,
+                        "country": data.country,
+                    },
+                ]
+
+            data_list = []
+            for item in data:
+                data_list.append(
+                    {
+                        "name": item.name,
+                        "id": item.id,
+                        "original_name": item.original_name,
+                        "merchant code": item.mcc,
+                        "created_at": item.created_at,
+                        "details": item.detail,
+                        "address": item.address,
+                        "is_pf": item.is_pf,
+                        "country": item.country,
+                    }
+                )
+            return data_list
 
         return None
 
