@@ -77,43 +77,46 @@ class Nubank_API(Statment_ATM):
         try:
             transactions = self._get_credit_statments()
             for item in transactions:
-                item_detail = self._get_card_detail(item)["transaction"]
-
-                relation = {
-                    "establishment": {
-                        "original_name": item_detail["original_merchant_name"],
-                        "name": item_detail["merchant_name"].lower().rstrip(),
-                        "mcc": item_detail["mcc"],
-                        "date": item_detail["time"],
-                        "country": item_detail["country"].lower().rstrip(),
+                if item_detail := self._get_card_detail(item).get("transaction"):
+                    relation = {
+                        "establishment": {
+                            "original_name": item_detail["original_merchant_name"],
+                            "name": item_detail["merchant_name"].lower().rstrip(),
+                            "mcc": item_detail["mcc"],
+                            "date": item_detail["time"],
+                            "country": item_detail["country"].lower().rstrip(),
+                        }
                     }
-                }
-                relation_values = self._update_relations(relation)
+                    relation_values = self._update_relations(relation)
 
-                for detail in item_detail["charges_list"]:
-                    transaction = {
-                        "checknum": item["id"],
-                        "category": item["category"],
-                        "total_amount": item["amount"],
-                        "instalment_amount": detail["amount"],
-                        "status": detail["status"],
-                        "instalment_date": detail["post_date"],
-                        "instalment_index": detail["index"] + 1,
-                        "instalment_promotion_reason": detail.get(
-                            "promotion_reason", None
-                        ),
-                        "purchase_date": item["time"],
-                        "title": item["title"],
-                        "source": item["source"],
-                        "card_last_digits": item_detail["card_last_four_digits"],
-                        "card_type": item_detail["card_type"],
-                        "amount_without_iof": item_detail["amount_without_iof"],
-                        "card_id": item_detail["card"],
-                        "event_type": item_detail["event_type"],
-                        "establishment_id": relation_values["establishment_id"],
-                    }
+                    for detail in item_detail["charges_list"]:
+                        transaction = {
+                            "checknum": item["id"],
+                            "category": item["category"],
+                            "total_amount": item["amount"],
+                            "instalment_amount": detail["amount"],
+                            "status": detail["status"],
+                            "instalment_date": detail["post_date"],
+                            "instalment_index": detail["index"] + 1,
+                            "instalment_promotion_reason": detail.get(
+                                "promotion_reason", None
+                            ),
+                            "purchase_date": item["time"],
+                            "title": item["title"],
+                            "source": item["source"],
+                            "card_last_digits": item_detail["card_last_four_digits"],
+                            "card_type": item_detail["card_type"],
+                            "amount_without_iof": item_detail["amount_without_iof"],
+                            "card_id": item_detail["card"],
+                            "event_type": item_detail["event_type"],
+                            "establishment_id": relation_values["establishment_id"],
+                        }
 
-                    self._add_credit_statment(transaction)
+                        self._add_credit_statment(transaction)
+                else:
+                    logger.error(
+                        "____________________________________________________  tA ERRADO ISSO, ARRUMA"
+                    )
 
         except Exception as error:
             logger.error(error)
