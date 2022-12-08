@@ -12,7 +12,7 @@ class Database:
 
     def _make_endpoint(self):
         if DEBUG:
-            return f"sqlite://tmp/{arrow.now().format('YYYY-MM-DD')}.db"
+            return f"sqlite:///tmp/{arrow.now().format('YYYY-MM-DD')}.db"
         return f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     def make_session(self):
