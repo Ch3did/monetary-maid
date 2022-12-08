@@ -55,6 +55,7 @@ class Categories(Base):
     is_visible = Column(Boolean, default=True)
     # TODO: Add key-words
     statment = relationship("Statment")
+    credit = relationship("Credit_Statement")
     bills = relationship("Bills")
 
 
@@ -94,6 +95,7 @@ class Credit_Statement(Base):
     card_id = Column(String(60), nullable=False)
     event_type = Column(String(60), nullable=False)
     establishment_id = Column(Integer, ForeignKey("establishments.id"))
+    categories_id = Column(Integer, ForeignKey("categories.id"))
 
 
 class Establishments(Base):
