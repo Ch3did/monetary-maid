@@ -13,13 +13,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Boolean
 
-from src.get_env import SCHEMA
-
 from ..helpers.database import Database
 
-metadata_obj = MetaData(schema=SCHEMA)
-
-Base = declarative_base(metadata=metadata_obj)
+Base = declarative_base()
 
 
 class Bills(Base):
