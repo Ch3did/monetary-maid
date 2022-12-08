@@ -1,4 +1,5 @@
-import arrow
+from datetime import datetime
+
 from sqlalchemy import (
     Column,
     DateTime,
@@ -13,13 +14,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Boolean
 
-from src.get_env import SCHEMA
-
 from ..helpers.database import Database
 
-metadata_obj = MetaData(schema=SCHEMA)
-
-Base = declarative_base(metadata=metadata_obj)
+Base = declarative_base()
 
 
 class Bills(Base):
@@ -30,7 +27,7 @@ class Bills(Base):
     amount = Column(Numeric, nullable=False)
     instalments = Column(Integer, nullable=False, default=1)
     due_instalment = Column(Numeric, nullable=False)
-    start_date = Column(DateTime, nullable=False, default=arrow.now())
+    start_date = Column(DateTime, nullable=False, default=datetime.now())
     end_date = Column(DateTime, nullable=True)
     payment_day = Column(String(2), nullable=True, default="01")
     description = Column(Text, nullable=False)
@@ -47,11 +44,9 @@ class Categories(Base):
     expected = Column(Numeric, nullable=True)
     liquid = Column(Numeric)
     created_at = Column(
-        DateTime, default=arrow.now().strftime("%Y-%m-%d")
+        DateTime, default=datetime.now()
     )  # Data da primeira vez que foi usado
-    updated_at = Column(
-        DateTime, default=arrow.now().strftime("%Y-%m-%d")
-    )  # Data que foi alterado
+    updated_at = Column(DateTime, default=datetime.now())  # Data que foi alterado
     is_visible = Column(Boolean, default=True)
     # TODO: Add key-words
     statment = relationship("Statment")
@@ -105,11 +100,9 @@ class Establishments(Base):
     name = Column(String(60), nullable=False)
     original_name = Column(String(100), nullable=False)
     created_at = Column(
-        DateTime, default=arrow.now().strftime("%Y-%m-%d")
+        DateTime, default=datetime.now()
     )  # Data da primeira vez que foi usado
-    updated_at = Column(
-        DateTime, default=arrow.now().strftime("%Y-%m-%d")
-    )  # Data que foi alterado
+    updated_at = Column(DateTime, default=datetime.now())  # Data que foi alterado
     detail = Column(Text, nullable=True, default=None)
     address = Column(String(60), nullable=True, default=None)
     is_visible = Column(Boolean, default=True)
