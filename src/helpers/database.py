@@ -1,3 +1,4 @@
+import arrow
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -10,6 +11,8 @@ class Database:
         self.session = self.make_session()
 
     def _make_endpoint(self):
+        if DEBUG:
+            return f"sqlite://tmp/{arrow.now().format('YYYY-MM-DD')}.db"
         return f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     def make_session(self):
