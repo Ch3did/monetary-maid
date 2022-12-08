@@ -4,6 +4,7 @@ data.pickle
 
 monetary_maid.config
 discovery/
+tmp/
 
 *.pyc
 
