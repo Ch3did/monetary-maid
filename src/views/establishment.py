@@ -39,14 +39,23 @@ def update_establishment_view(
 def get_establishment_info_view(name):
     try:
         if establishment_info := Statment_ATM().get_establishment_info(name):
-            logger.info(f"Name: {establishment_info['name']}")
-            logger.info(f"Registrer created in: {establishment_info['created_at']}")
-            if establishment_info["details"]:
-                logger.info(f"Details: {establishment_info['details']}")
-            if establishment_info["address"]:
-                logger.info(f"Address: {establishment_info['address']}")
-            if establishment_info["is_pf"]:
-                logger.info(f"Pf: {establishment_info['is_pf']}")
+            for item in establishment_info:
+                print(f"Name: {item['name'].title()}  |   ID: {item['id']}")
+                print(f"Original name: {item['original_name'].title()}")
+                print(f"Created in: {item['created_at']}")
+                if item["details"]:
+                    print(f"Details: {item['details']}")
+                if item["address"]:
+                    print(f"Address: {item['address']}")
+                if item["is_pf"]:
+                    print(f"Pf: {item['is_pf']}")
+
+                if item["country"]:
+                    print(f"Country: {item['country']}")
+                print(
+                    "_____________________________________________________________________________________"
+                )
+
         else:
             logger.error("Establishment not found...")
     except Exception as error:
