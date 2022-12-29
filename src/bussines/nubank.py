@@ -114,9 +114,15 @@ class Nubank_API(Statment_ATM):
 
                         self._add_credit_statment(transaction)
                 else:
-                    logger.error(
-                        "____________________________________________________  tA ERRADO ISSO, ARRUMA"
-                    )
+                    relation = {
+                        "establishment": {
+                            "original_name": item_detail["original_merchant_name"],
+                            "name": item_detail["merchant_name"].lower().rstrip(),
+                            "mcc": item_detail["mcc"],
+                            "date": item_detail["time"],
+                            "country": item_detail["country"].lower().rstrip(),
+                        }
+                    }
 
         except Exception as error:
             logger.error(error)
@@ -155,5 +161,5 @@ class Nubank_API(Statment_ATM):
             logger.error(error)
 
     def update_statment(self):
-        self._debit_update()
+        # self._debit_update()
         self._credit_update()
