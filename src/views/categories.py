@@ -20,9 +20,10 @@ def create_category_view():
 
 
 @clean_output
-def get_categories_info_view(name):
+def get_categories_info_view(id):
+
     try:
-        data = Category_ATM().get_categories_list(name)
+        data = Category_ATM().get_categories_list(id)
         table = [
             (
                 "ID",

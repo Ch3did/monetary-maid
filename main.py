@@ -39,10 +39,9 @@ def mconf():
 
 
 @mget.command("category", help="Get Category info")
-@click.option("--name", default=False)
-@click.option("--name", "-n", help="Specifies a Category", default="all")
-def get_category_info(name):
-    get_categories_info_view(str(name))
+@click.option("--id", help="Specifies a Category", default="all")
+def get_category_info(id):
+    get_categories_info_view(id)
 
 
 @mget.command("dlist", help="Get the debit list")

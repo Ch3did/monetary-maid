@@ -30,10 +30,10 @@ class Category_ATM:
         self.conn.commit()
         self.conn.close()
 
-    def get_categories_list(self, name):
-        if name == "all":
+    def get_categories_list(self, id):
+        if id == "all":
             return (
                 self.conn.query(Categories).filter(Categories.is_visible == True).all()
             )
         else:
-            return [self.conn.query(Categories).filter(Categories.name == name).first()]
+            return [self.conn.query(Categories).filter(Categories.id == id).first()]
