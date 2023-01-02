@@ -2,6 +2,7 @@ import arrow
 from loguru import logger
 
 from src.helpers.database import Database
+from src.helpers.exception import ATMException
 from src.models.categories import Categories
 from src.models.debit import Debit
 
@@ -49,3 +50,25 @@ class Debit_ATM:
             .filter(Debit.date >= period)
             .all()
         )
+
+    def get_debit_by_id(self, id):
+        return (
+            self.conn.query(Debit, Categories)
+            .join(Categories, Debit.category == Categories.id)
+            .filter(Debit.id == id)
+            .first()
+        )
+
+    # Update
+
+    def update_debits_category(self, debit_id, category_id):
+        if self.conn.query(Debit.id).filter(Debit.id == debit_id).all():
+            self.conn.query(Debit).filter(Debit.id == debit_id).update(
+                {
+                    Debit.category: f"{category_id}",
+                }
+            )
+            self.conn.commit()
+            self.conn.close()
+        else:
+            raise ATMException(message="Debit ID Not Found")
