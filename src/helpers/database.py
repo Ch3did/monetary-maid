@@ -6,7 +6,6 @@ from src.get_env import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, DEBUG
 
 class Database:
     def __init__(self):
-
         self.engine = create_engine(self._make_endpoint(), echo=bool(DEBUG))
         self.session = self.make_session()
 

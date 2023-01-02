@@ -1,26 +1,28 @@
+from src.models.base import Base
+from src.models.categories import Categories
+
 from ..helpers.database import Database
-from ..models.atm import Categories, Establishments
+
+# from src.get_env import SCHEMA
 
 
 class Config:
     def __init__(self):
-        self.conn = Database().session()
+        db = Database()
+        self.conn = db.session()
+        self.engine = db.engine
 
     def make_migrate(self):
+        Base.metadata.create_all(self.engine)
+        self.conn.commit()
+
         default_category = Categories(
-            name="extras",
+            name="invisible",
             description="Default category maded to receive everything that's not indentified",
             expected=500.00,
-        )
-
-        default_establishments = Establishments(
-            name="N/A",
-            original_name="N/A",
-            detail="Used when we don't have info about the establishment",
             is_visible=False,
         )
 
         self.conn.add(default_category)
-        self.conn.add(default_establishments)
         self.conn.commit()
         self.conn.close()
