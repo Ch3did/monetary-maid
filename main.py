@@ -3,7 +3,11 @@ import click
 
 from src.views.categories import create_category_view, get_categories_info_view
 from src.views.config import run_migrate_view
-from src.views.debit import list_debit_from_period_view, update_nubank_statment_view
+from src.views.debit import (
+    list_debit_from_period_view,
+    update_debit_category_view,
+    update_nubank_statment_view,
+)
 
 
 # Get data
@@ -68,10 +72,10 @@ def update_nubank_statment():
     update_nubank_statment_view()
 
 
-@mup.command("category", help="Update Category Details and Location")
-def update_Category():
-    # update_category_view()
-    pass
+@mup.command("debit", help="Update debit Category")
+@click.argument("id")
+def update_debit_category(id):
+    update_debit_category_view(id)
 
 
 # CONFIGURATION
