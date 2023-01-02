@@ -10,3 +10,6 @@ discovery/
 .vscode/
 .pytest_cache/
 __pycache__/
+
+
+sql/
