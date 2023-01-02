@@ -4,7 +4,6 @@ from tabulate import tabulate
 
 from src.bussines.categories import Category_ATM
 from src.helpers.clear import clean_output
-from src.helpers.validators import is_amount_valid
 
 
 @clean_output
@@ -13,11 +12,9 @@ def create_category_view():
         print("----------Create New Category ")
         name = input("Name: ")
         description = input("Description: ")
-        if expected := is_amount_valid(input("Expected (%.2): ")):
-            Category_ATM().add_category(name.lower(), description, expected)
-            print(f"Category {name.title()} created sucessfully")
-        else:
-            print("Expected is not valid")
+        expected = float(input("Expected (%.2): "))
+        Category_ATM().add_category(name.lower(), description, expected)
+        print(f"Category {name.title()} created sucessfully")
     except Exception as error:
         logger.error(f"{error}")
 
@@ -28,6 +25,7 @@ def get_categories_info_view(name):
         data = Category_ATM().get_categories_list(name)
         table = [
             (
+                "ID",
                 "Name",
                 "Expected",
                 "Description",
@@ -37,6 +35,7 @@ def get_categories_info_view(name):
 
         for item in data:
             lista = (
+                item.id,
                 item.name,
                 item.expected,
                 item.description,

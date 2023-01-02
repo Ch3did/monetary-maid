@@ -1,5 +1,5 @@
 from src.helpers.database import Database
-from src.helpers.validators import ATMValidatorException
+from src.helpers.exception import ATMException
 from src.models.categories import Categories
 
 
@@ -14,7 +14,7 @@ class Category_ATM:
             .filter(Categories.name == name.rstrip())
             .first()
         ):
-            raise ATMValidatorException(
+            raise ATMException(
                 message="Category already exists... ",
                 description=description,
                 expected=expected,
@@ -23,8 +23,8 @@ class Category_ATM:
             name=name, description=description, expected=expected, is_visible=True
         )
 
-        # if expected < 0:
-        #     Categories.is_spend = True
+        if float(expected) < 0:
+            Categories.is_spend = True
 
         self.conn.add(category)
         self.conn.commit()
