@@ -9,9 +9,9 @@ from src.helpers.clear import clean_output
 
 
 @clean_output
-def make_homescreen():
+def make_homescreen(search_type):
     try:
-        categories = Category_ATM().get_categories_list(1)
+        categories = Category_ATM().get_categories_list(search_type)
         transactions = Debit_ATM().get_debits()
         plot_relation = {}
         for values in transactions:

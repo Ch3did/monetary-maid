@@ -53,7 +53,8 @@ def list_debit_from_period_view(period):
 def update_debit_category_view(id):
     try:
         print("----------Update Category from Debit ")
-        data = Category_ATM().get_categories_list("all")
+        print("-------------------------------------\n")
+        data = Category_ATM().get_categories_list(0)
         table = [("ID", "Name")]
 
         for item in data:
@@ -69,3 +70,19 @@ def update_debit_category_view(id):
         print("Changed sucessfully!")
     except Exception as error:
         logger.error(f"{error}")
+
+
+@clean_output
+def list_debit_by_id_view():
+    try:
+        print("----------Update Category from Debit ")
+        print("-------------------------------------\n")
+
+        debit_id = int(input(f"Input debit_id of you are looking for: "))
+        if debit := Debit_ATM().get_debit(debit_id):
+            print(tabulate(table, headers="firstrow"))
+
+            print(debit.amount)
+
+    except Exception as error:
+        print(error)

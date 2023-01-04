@@ -4,6 +4,7 @@ import click
 from src.views.categories import create_category_view, get_categories_info_view
 from src.views.config import run_migrate_view
 from src.views.debit import (
+    list_debit_by_id_view,
     list_debit_from_period_view,
     update_debit_category_view,
     update_nubank_statment_view,
@@ -37,8 +38,9 @@ def mconf():
 
 # @click.group("olar", )
 @click.command("home", help="Print the home screen")
-def home():
-    make_homescreen()
+@click.option("-t", help="Specifies a type of search from Categories", default=1)
+def home(t):
+    make_homescreen(t)
 
 
 #     ___     ___     ___     ___     ___     ___     ___     ___     ___
@@ -46,9 +48,9 @@ def home():
 
 
 @mget.command("category", help="Get Category info")
-@click.option("--id", help="Specifies a Category", default="all")
-def get_category_info(id):
-    get_categories_info_view(id)
+@click.option("-t", help="Specifies a type of search from Categories", default=1)
+def get_category_info(t):
+    get_categories_info_view(t)
 
 
 @mget.command("dlist", help="Get the debit list")
@@ -60,6 +62,11 @@ def get_category_info(id):
 )
 def get_debit_list(period):
     list_debit_from_period_view(period)
+
+
+@mget.command("debit", help="Get an especific debit by ID")
+def get_debit_by_id():
+    list_debit_by_id_view()
 
 
 # PUT

@@ -1,14 +1,5 @@
 import arrow
-from sqlalchemy import (
-    Column,
-    DateTime,
-    ForeignKey,
-    Integer,
-    MetaData,
-    Numeric,
-    String,
-    Text,
-)
+from sqlalchemy import Column, DateTime, Integer, Numeric, String, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Boolean
 

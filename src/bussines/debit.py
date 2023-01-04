@@ -43,13 +43,16 @@ class Debit_ATM:
 
     # Get
 
-    def get_debits(self, period):
+    def get_debits(self, period=arrow.now().shift(days=-4).format("YYYY-MM-01")):
         return (
             self.conn.query(Debit, Categories)
             .join(Categories, Debit.category == Categories.id)
             .filter(Debit.date >= period)
             .all()
         )
+
+    def get_debit(self, id):
+        return self.conn.query(Debit).filter(Debit.id == id).first()
 
     def get_debit_by_id(self, id):
         return (
