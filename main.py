@@ -8,6 +8,7 @@ from src.views.debit import (
     update_debit_category_view,
     update_nubank_statment_view,
 )
+from src.views.homescreen import make_homescreen
 
 
 # Get data
@@ -32,6 +33,12 @@ def mup():
 @click.group("confg", help="Monetary Config: Run configurations")
 def mconf():
     ...
+
+
+# @click.group("olar", )
+@click.command("home", help="Print the home screen")
+def home():
+    make_homescreen()
 
 
 #     ___     ___     ___     ___     ___     ___     ___     ___     ___

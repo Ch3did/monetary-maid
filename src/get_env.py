@@ -20,3 +20,5 @@ DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 
 SCHEMA = os.environ.get("SCHEMA")
+
+USER_NAME = os.environ.get("USER_NAME")
