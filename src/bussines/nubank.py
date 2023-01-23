@@ -22,6 +22,7 @@ class Nubank_API(Debit_ATM):
             "DebitWithdrawalEvent",
             "TransferOutEvent",
             "PixTransferOutEvent",
+            "PixTransferScheduledEvent",
             "BarcodePaymentEvent",
             "BillPaymentEvent",
             "DebitPurchaseEvent",
