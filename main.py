@@ -1,13 +1,17 @@
 import arrow
 import click
 
-from src.views.categories import create_category_view, get_categories_info_view
+from src.views.categories import (
+    create_category_view,
+    get_categories_list_view,
+    get_category_by_id_view,
+)
 from src.views.config import run_migrate_view
 from src.views.debit import (
-    list_debit_by_id_view,
+    get_debit_by_id_view,
     list_debit_from_period_view,
+    update_bank_statment_view,
     update_debit_category_view,
-    update_nubank_statment_view,
 )
 from src.views.homescreen import make_homescreen
 
@@ -44,13 +48,7 @@ def home(t):
 
 
 #     ___     ___     ___     ___     ___     ___     ___     ___     ___
-# GET
-
-
-@mget.command("category", help="Get Category info")
-@click.option("-t", help="Specifies a type of search from Categories", default=1)
-def get_category_info(t):
-    get_categories_info_view(t)
+# GET Debits
 
 
 @mget.command("dlist", help="Get the debit list")
@@ -65,14 +63,30 @@ def get_debit_list(period):
 
 
 @mget.command("debit", help="Get an especific debit by ID")
-def get_debit_by_id():
-    list_debit_by_id_view()
+@click.argument("id")
+def get_debit_by_id(id):
+    get_debit_by_id_view(id)
+
+
+# GET Category
+
+
+@mget.command("categories", help="Get categories list")
+@click.option("-inv", help="#DESCUBRA", default=False)
+def get_category_info(inv):
+    get_categories_list_view(inv)
+
+
+@mget.command("category", help="Get an especific category by ID")
+@click.argument("id")
+def get_category_info(id):
+    get_category_by_id_view(id)
 
 
 # PUT
 
 
-@mput.command("category", help="Register a new Category")
+@mput.command("category", help="Register a new category")
 def create_category():
     create_category_view()
 
@@ -80,12 +94,12 @@ def create_category():
 # UPDATE
 
 
-@mup.command("nubank", help="Update Nubank Statment")
+@mup.command("bank", help="Update Bank's Debits")
 def update_nubank_statment():
-    update_nubank_statment_view()
+    update_bank_statment_view()
 
 
-@mup.command("debit", help="Update debit Category")
+@mup.command("debit", help="Update an debit's category relation")
 @click.argument("id")
 def update_debit_category(id):
     update_debit_category_view(id)

@@ -9,7 +9,9 @@ from src.helpers.clear import clean_output
 
 
 @clean_output
-def update_nubank_statment_view():
+def update_bank_statment_view():
+    print("------------------Update Statment")
+    print("---------------------------------\n")
     try:
         Nubank_API().update()
     except Exception as error:
@@ -18,6 +20,8 @@ def update_nubank_statment_view():
 
 @clean_output
 def list_debit_from_period_view(period):
+    print("--------------------------Get debit list ")
+    print("----------------------------------------\n")
     try:
         debit_list = [
             (
@@ -51,9 +55,9 @@ def list_debit_from_period_view(period):
 
 @clean_output
 def update_debit_category_view(id):
+    print("----------Update Category from Debit ")
+    print("-------------------------------------\n")
     try:
-        print("----------Update Category from Debit ")
-        print("-------------------------------------\n")
         data = Category_ATM().get_categories_list(0)
         table = [("ID", "Name")]
 
@@ -73,16 +77,34 @@ def update_debit_category_view(id):
 
 
 @clean_output
-def list_debit_by_id_view():
+def get_debit_by_id_view(id):
+    print("--------------------------Get  Debit ")
+    print("-------------------------------------\n")
     try:
-        print("----------Update Category from Debit ")
-        print("-------------------------------------\n")
 
-        debit_id = int(input(f"Input debit_id of you are looking for: "))
-        if debit := Debit_ATM().get_debit(debit_id):
-            print(tabulate(table, headers="firstrow"))
+        if debit := Debit_ATM().get_debit(id):
+            category = Category_ATM().get_category_by_id(debit.category)
+            print()
+            debit_list = [
+                (
+                    "Local",
+                    "Data",
+                    "Tipo de Transação",
+                    "Valor",
+                    "Description",
+                    "Category",
+                ),
+                (
+                    debit.establishment,
+                    arrow.get(debit.date).format("YY-MM-DD"),
+                    debit.typename,
+                    debit.amount,
+                    debit.description,
+                    category[0].name,
+                ),
+            ]
 
-            print(debit.amount)
+            print("\n", tabulate(debit_list, headers="firstrow"), "\n")
 
     except Exception as error:
         print(error)

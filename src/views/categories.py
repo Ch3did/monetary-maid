@@ -21,10 +21,11 @@ def create_category_view():
 
 
 @clean_output
-def get_categories_info_view(search_type):
-
+def get_categories_list_view(get_invisible):
+    print("--------------------------Get  Categories ")
+    print("-----------------------------------------\n")
     try:
-        data = Category_ATM().get_categories_list(search_type)
+        data = Category_ATM().get_categories_list(get_invisible)
         if data:
 
             table = [
@@ -48,7 +49,43 @@ def get_categories_info_view(search_type):
 
             print(tabulate(table, headers="firstrow"))
         else:
-            print(f"Category {search_type} Not Found")
+            print(f"Categories Not Found")
+
+    except Exception as error:
+        logger.error(f"{error}")
+
+
+@clean_output
+def get_category_by_id_view(id):
+    print("--------------------------Get  Category ")
+    print("---------------------------------------\n")
+    try:
+
+        data = Category_ATM().get_category_by_id(id)
+        if data:
+
+            table = [
+                (
+                    "ID",
+                    "Name",
+                    "Expected",
+                    "Description",
+                    "Created at",
+                )
+            ]
+            for item in data:
+                lista = (
+                    item.id,
+                    item.name,
+                    item.expected,
+                    item.description,
+                    item.created_at,
+                )
+                table.append(lista)
+
+            print("\n", tabulate(table, headers="firstrow"), "\n")
+        else:
+            print(f"Categories Not Found")
 
     except Exception as error:
         logger.error(f"{error}")
