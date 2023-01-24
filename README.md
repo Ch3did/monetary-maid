@@ -1,4 +1,4 @@
-# Project -monetary-maid
+# Monetary Maid
 
 ## Init
 
